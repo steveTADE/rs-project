@@ -1,0 +1,10 @@
+[package]
+name = "cyclic_cellular_automaton"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+crossterm = "0.29.0"
+fastrand = "2.5.0"
+
