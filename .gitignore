@@ -2,4 +2,5 @@
 *.d
 *.exe
 *.lock
-/release/*
+/output
+*.rustc_info.json
