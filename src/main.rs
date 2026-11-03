@@ -63,12 +63,14 @@ fn display (grid : &Vec<bool>, grid_size : i32, ant_index : usize, mut buffer : 
         else {
             buffer.push_str(DEAD);
         }
+
         counter += 1;
         if counter == grid_size {
             buffer.push('\n');
             counter = 0;
         }
     }
+
     buffer
 }
 

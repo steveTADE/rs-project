@@ -14,6 +14,14 @@ codegen-units = 1
 #lto = true             # or "fat" — removes dead code across crates
 panic = "abort"         # removes unwinding tables entirely
 strip = true            # strips symbols/debug info
+# profile is optimized for speed
+
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
+[workspace]
+resolver = "3"
+members = ["game_of_life","langtons_ant"]
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
