@@ -2,4 +2,3 @@
 *.d
 *.exe
 *.lock
-/output/*
