@@ -22,7 +22,7 @@ target-dir = "/output"
 
 [workspace]
 resolver = "3"
-members = ["game_of_life","langtons_ant", "random_shi", "text_editor"]
+members = ["game_of_life","langtons_ant", "pipes", "random_shi", "text_editor"]
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
