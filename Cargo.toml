@@ -18,6 +18,7 @@ strip = true            # strips symbols/debug info
 
 [build]
 rustflags = ["-C", "target-cpu=native"]
+target-dir = "output"
 
 [workspace]
 resolver = "3"
@@ -26,3 +27,6 @@ members = ["game_of_life","langtons_ant"]
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 crossterm = "0.29.0"
+rayon = "1.12.0"
+fastrand = "2.5.0"
+
