@@ -32,7 +32,6 @@ struct Args {
 
 
 fn arg(){
-    pass;
 }
 
 fn display (grid : &Vec<bool>, grid_size : i32, ant_index : usize, mut buffer : String) -> String {
