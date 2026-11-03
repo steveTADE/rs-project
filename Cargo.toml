@@ -17,8 +17,8 @@ strip = true            # strips symbols/debug info
 # profile is optimized for speed
 
 [build]
-rustflags = ["-C", "target-cpu=native"]
-target-dir = "output"
+rustflags = ["-C", "target-cpu=native", "--target-dir", "./output"]
+target-dir = "/output"
 
 [workspace]
 resolver = "3"

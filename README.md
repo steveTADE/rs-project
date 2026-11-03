@@ -1,0 +1,3 @@
+make sure to use 
+CARGO_TARGET_DIR=output cargo...
+before the actual command to compile the binary its a fucking mess
