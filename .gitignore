@@ -2,4 +2,4 @@
 *.d
 *.exe
 *.lock
-/release
+/release/*
