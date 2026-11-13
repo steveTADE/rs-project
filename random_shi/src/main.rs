@@ -1,3 +1,13 @@
+
+
+fn main(){
+}
+
+
+
+
+/*
+use std::time::Instant;
 use fastrand;
 use rayon::prelude::*;
 use std::{collections::HashMap, io::{self, Stdout, StdoutLock, Write, stdout}, string};
@@ -8,8 +18,43 @@ const SOFT_RESET  : &str = "\u{1b}[2J\u{1b}[3J";
 const HIDE_CURSOR : &str = "\u{1b}[?25l";
 const CURSOR_HOME : &str = "\x1b[H";
 const ARRAY_LENGTH:usize = 100;
+use fastrand;
 
-//use fastrand;
+type INTEGERTYPE = i16;
+const ARRAY_LENGTH : usize = INTEGERTYPE::MAX as usize;
+
+fn main() {
+    let something: [INTEGERTYPE; ARRAY_LENGTH] = std::array::from_fn(|_| fastrand::i16(0..INTEGERTYPE::MAX));
+
+    let start = Instant::now();
+    let _bucket_output = bucket_sort(something);
+    let bucket_time = start.elapsed();
+
+    let mut sort_output = something;
+    let start = Instant::now();
+    sort_output.sort();
+    let sort_time = start.elapsed();
+
+    println!("bucket sort time > ({:?})", bucket_time);
+    println!("standard sort time > ({:?})", sort_time);
+}
+#[inline(always)]
+fn bucket_sort(target : [INTEGERTYPE ; ARRAY_LENGTH]) -> [INTEGERTYPE; ARRAY_LENGTH]{
+    let mut tmp = [0; INTEGERTYPE::MAX as usize];
+    let mut output : [INTEGERTYPE; ARRAY_LENGTH] = [0; ARRAY_LENGTH];
+    let mut start = 0;
+    for num in target {
+        tmp[num as usize] += 1;
+    }
+    for (index, count) in tmp.iter().enumerate() {
+            let end = start + count;
+            output[start..end].fill(index as INTEGERTYPE);
+            start = end;
+    }
+    output
+}
+
+
 pub fn main() {
     let target:i32 = fastrand::i32(0..=100) * 37/10;
     let return_coins_list = get_return_change(target);
@@ -109,15 +154,14 @@ fn a_b_to_c(){
 fn bucket_sort(target : [i32 ; ARRAY_LENGTH]) -> [i32; ARRAY_LENGTH]{
     let mut tmp = [0; ARRAY_LENGTH];
     let mut output = [0; ARRAY_LENGTH];
-    let mut pos = 0;
+    let mut start = 0;
     for num in target {
         tmp[num as usize] += 1;
     }
     for (index, count) in tmp.iter().enumerate() {
-        for _ in 0..*count {
-            output[pos] = index as i32;
-            pos += 1;
-        }
+            let end = start + count;
+            output[start..end].fill(index as i32);
+            start = end;
     }
     output
 }
@@ -254,7 +298,7 @@ fn squared_sum(list : &Vec<i32>) -> i32{
     output.pow(2)
 }
 
-fn pascal_triangle_example() ->ExitCode{
+fn pascal_triangle_example() -> ExitCode{
     let mut pascal_tri_list : Vec<Vec<i32>> = vec![vec![1], vec![1, 1]];
     let number_rows: usize = 5;
     if number_rows < 2 {
@@ -354,3 +398,4 @@ fn Container_With_Most_Water(){
     println!("{}", output);
 }
 
+*/
