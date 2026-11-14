@@ -107,7 +107,7 @@ fn main(){
     print!("{}{}" , SOFT_RESET, HIDE_CURSOR);
     grid = start_game(grid);
     //TOOD : if possible change the method in check allow exit loops
-    
+
     loop { // main loop
         display_grid(grid);
         thread::sleep(Duration::from_millis(REFRESH_TIME)); // allat just to sleep
