@@ -10,8 +10,8 @@ use crossterm::terminal;
 //TODO: make grid size mutable  
 //region variable
 //⬛⬜██
-const ALIVE            : &str = "\x1b[37m⬜ ";
-const DEAD             : &str = "\x1b[30m⬛ ";
+const ALIVE            : &str = "\x1b[37m⬜";
+const DEAD             : &str = "\x1b[30m⬛";
 const SOFT_RESET       : &str = "\u{1b}[2J\u{1b}[3J";
 const HIDE_CURSOR      : &str = "\u{1b}[?25l";
 const SHOW_CURSOR      : &str = "\u{1b}[?25h";
