@@ -5,7 +5,7 @@ use std::thread;
 
 type IntegerType = i16; // change this to i8, i32, i64, u16, etc.
 
-const ARRAY_LENGTH: usize = 110;
+const ARRAY_LENGTH: usize = 100;
 const THRESHOLD: usize = 8; // low so the radix passes are visible on small arrays
 const TOTAL_BITS: u32 = IntegerType::BITS;
 const MIN_RUN: usize = 8; // runs shorter than this are extended with binary insertion
@@ -119,6 +119,7 @@ fn merge(a: &[IntegerType], b: &[IntegerType]) -> Vec<IntegerType> {
 /// Bottom-up parallel merge sort. Each pair of runs at a given width is
 /// merged on its own thread. Writes go through a shared Mutex so that
 /// `display` sees a consistent array.
+/// ts doesn't actually parallel sort its just called that cause the ai messed up and i can't care enough to correct it
 pub fn parallel_merge_sort(arr: &mut [IntegerType], delay: Duration) {
     let n = arr.len();
     let shared = Mutex::new(arr.to_vec());
@@ -296,7 +297,7 @@ fn display(arr: &[IntegerType], status: &str, delay: Duration) {
     if delay.is_zero() {
         return;
     }
-    let maximum: &i16 = arr.iter().max().unwrap();
+    let maximum: &IntegerType = arr.iter().max().unwrap();
     print!("{}", CURSOR_HOME); // clear screen, cursor to top-left
     println!("{status}\n");
     for &x in arr {
@@ -304,13 +305,53 @@ fn display(arr: &[IntegerType], status: &str, delay: Duration) {
     }
     sleep(delay);
 }
+fn bubble_sort(arr: &mut [IntegerType], delay: Duration){
+    let length = arr.len();
+    for _ in 0..length {
+        for j in 0..length - 1 {
+            if arr[j] > arr[j + 1] {
+                arr.swap(j, j + 1);
+            }
+            display(&arr, "", delay);
+        }
+    }
+}
+
+fn bucket_sort(arr: &mut [IntegerType], delay: Duration) {
+    if arr.is_empty() {
+        return;
+    }
+    // Shrink the bucket table to the actual value range instead of all of i16.
+    let min = *arr.iter().min().unwrap() as i64;
+    let max = *arr.iter().max().unwrap() as i64;
+    let range = (max - min + 1) as usize;
+
+    let mut counts = vec![0usize; range];
+    for &x in arr.iter() {
+        counts[(x as i64 - min) as usize] += 1;
+    }
+
+    let mut pos = 0;
+    for (i, &count) in counts.iter().enumerate() {
+        if count == 0 {
+            continue;
+        }
+        let value = (i as i64 + min) as IntegerType;
+        let status = format!("Bucket sort: placing {count} x {value}");
+        for _ in 0..count {
+            arr[pos] = value;
+            pos += 1;
+            display(arr, &status, delay);
+        }
+    }
+}
 
 fn main() {
-    let tmp : [IntegerType; ARRAY_LENGTH] = std::array::from_fn(|_| fastrand::i16(0..200));
+    let tmp : [IntegerType; ARRAY_LENGTH] = std::array::from_fn(|_| fastrand::i16(0..256));
     let mut data: Vec<IntegerType> = tmp.to_vec();
 
     println!("{}{}{}Before: {:?}", SOFT_RESET, CURSOR_HOME, HIDE_CURSOR, data);
     //hybrid_radix_sort(&mut data, Duration::from_millis(60));
-    hybrid_radix_sort(&mut data, Duration::from_millis(10));
+    timsort(&mut data, Duration::from_millis(10));
     println!("\x1B[2J\x1B[HAfter:  {:?}{}", data, SHOW_CURSOR);
 }
