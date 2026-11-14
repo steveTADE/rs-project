@@ -22,11 +22,12 @@ target-dir = "/output"
 
 [workspace]
 resolver = "3"
-members = ["cyclic_cellular_automaton","game_of_life","langtons_ant", "pipes", "random_shi", "text_editor"]
+members = ["cyclic_cellular_automaton","game_of_life","langtons_ant", "pipes", "random_shi", "sorting_algorithms", "text_editor"]
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 crossterm = "0.29.0"
 rayon = "1.12.0"
 fastrand = "2.5.0"
+sorting-algorithms = "0.1.0"
 
